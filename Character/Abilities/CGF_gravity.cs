@@ -9,20 +9,30 @@ namespace Opsive.ThirdPersonController.Abilities
 {
 	public class CGF_gravity : Ability
 	{
+		public CGF_Character GetCharacter()
+		{
+			return m_GameObject.GetComponent<CGF_Character>();
+		}
+
 		public override bool CanStartAbility()
 		{
-			return true;
+			return (this.GetCharacter() != null);
 		}
 
 		public override bool CanStopAbility()
 		{
-			return false;
+			return (this.GetCharacter() == null);
 		}
 
 		public override bool UpdateRotation()
 		{
+			CGF_Character character = this.GetCharacter();
+			if ((character != null) && character.IsInGravity())
+			{
+				//character.GetRotation();
+				Debug.LogError("UpdateRotation");
+			}
 			return true;
-			//m_GameObject.transform.rotation;
 		}
 	}
 }
